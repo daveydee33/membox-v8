@@ -49,13 +49,5 @@ export const Main = (props: { children: ReactNode }) => {
 };
 
 export const Footer = () => {
-  return (
-    <footer
-      style={{
-        border: "1px solid red",
-      }}
-    >
-      Footer
-    </footer>
-  );
+  return <footer>Footer</footer>;
 };

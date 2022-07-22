@@ -1,41 +1,36 @@
 import { Grid, Box, Paper, styled } from "@mui/material";
-import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getItems } from "../api";
 
-import React, { ReactNode, useEffect, useState } from "react";
-import theme from "../theme";
+import React, { ReactNode } from "react";
 
 export const Right = () => {
-  // const Item = styled(Paper)(({ theme }) => ({
-  //   ...theme.typography.body2,
-  //   textAlign: "center",
-  //   color: theme.palette.text.secondary,
-  //   height: 60,
-  //   lineHeight: "60px",
-  // }));
+  // const [items, itemsSetter] = useState([]);
 
-  // const items = Array(500).fill("nothing");
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  // const ItemCard = styled(Paper)(({ theme }) => {
-  //   return {
-  //     ...theme.typography.body1,
-  //     textAlign: "center",
-  //     color: theme.palette.text.secondary,
-  //     p: 1,
-  //   };
+  // const fetchData = async () => {
+  //   const res = await getItems();
+  //   itemsSetter(res.results);
+  // };
+
+  // Access the client
+  const queryClient = useQueryClient();
+
+  // Queries
+  const query = useQuery(["items"], getItems);
+
+  // Mutations
+  // const mutation = useMutation(postTodo, {
+  //   onSuccess: () => {
+  //     // Invalidate and refetch
+  //     queryClient.invalidateQueries(["todos"]);
+  //   },
   // });
 
-  const [items, itemsSetter] = useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const res = await axios.get(
-      "https://membox-v7-staging.herokuapp.com/v1/items?limit=9999"
-    );
-    itemsSetter(res.data.results);
-  };
+  if (!query.data) return "...";
 
   const ItemCard = (props: ReactNode) => {
     return (
@@ -65,7 +60,7 @@ export const Right = () => {
         backgroundColor: "secondary.main",
       }}
     >
-      {items.map((item, index) => (
+      {(items || []).map((item, index) => (
         <ItemCard key={item.id}>{item.title}</ItemCard>
       ))}
     </Box>
