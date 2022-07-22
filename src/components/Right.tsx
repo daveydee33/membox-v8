@@ -1,6 +1,8 @@
-import { Grid, Box, Paper, styled, ThemeProvider } from "@mui/material";
+import { Grid, Box, Paper, styled } from "@mui/material";
+import axios from "axios";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
+import theme from "../theme";
 
 export const Right = () => {
   // const Item = styled(Paper)(({ theme }) => ({
@@ -11,7 +13,7 @@ export const Right = () => {
   //   lineHeight: "60px",
   // }));
 
-  const items = Array(500).fill("nothing");
+  // const items = Array(500).fill("nothing");
 
   // const ItemCard = styled(Paper)(({ theme }) => {
   //   return {
@@ -21,6 +23,19 @@ export const Right = () => {
   //     p: 1,
   //   };
   // });
+
+  const [items, itemsSetter] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const res = await axios.get(
+      "https://membox-v7-staging.herokuapp.com/v1/items?limit=9999"
+    );
+    itemsSetter(res.data.results);
+  };
 
   const ItemCard = (props: ReactNode) => {
     return (
@@ -39,22 +54,20 @@ export const Right = () => {
   };
 
   return (
-    <ThemeProvider>
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: "flex",
-          flexWrap: "wrap",
-          padding: 1,
-          gap: 1,
-          alignContent: "flex-start",
-          backgroundColor: "lightgray",
-        }}
-      >
-        {items.map((item, index) => (
-          <ItemCard>{index}</ItemCard>
-        ))}
-      </Box>
-    </ThemeProvider>
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: "flex",
+        flexWrap: "wrap",
+        padding: 1,
+        gap: 1,
+        alignContent: "flex-start",
+        backgroundColor: "secondary.main",
+      }}
+    >
+      {items.map((item, index) => (
+        <ItemCard key={item.id}>{item.title}</ItemCard>
+      ))}
+    </Box>
   );
 };

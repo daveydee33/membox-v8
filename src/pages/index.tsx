@@ -5,6 +5,7 @@ import Image from "next/image";
 // import styles from "../styles/Home.module.css";
 import { Header, Main, Footer, Root } from "../components/Layout";
 import { Right } from "../components/Right";
+import logo from "../../public/logo.png";
 
 const Home: NextPage = () => {
   return (
@@ -16,19 +17,23 @@ const Home: NextPage = () => {
       </Head>
       <Root>
         <Header>
-          <div>Logo</div>
+          <div>
+            {/* <Image src={logo} width="20px" height="20px"></Image> */}
+            Logo
+          </div>
           <div>Search</div>
           <div>Login</div>
         </Header>
         <Main>
-          <div
-            style={{
-              border: "1px solid orange",
+          <Box
+            sx={{
+              // border: "1px solid orange",
               minWidth: "250px",
+              backgroundColor: "secondary.main",
             }}
           >
             Left
-          </div>
+          </Box>
           {/* <div
             style={{
               border: "1px solid purple",

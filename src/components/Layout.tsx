@@ -25,7 +25,7 @@ export const Header = (props: { children: ReactNode }) => {
         display: "flex",
         justifyContent: "space-between",
         padding: "1rem",
-        backgroundColor: "primary.dark",
+        backgroundColor: "secondary.main",
       }}
     >
       {props.children}
