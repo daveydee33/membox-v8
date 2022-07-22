@@ -1,8 +1,10 @@
+import { Box } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 // import styles from "../styles/Home.module.css";
 import { Header, Main, Footer, Root } from "../components/Layout";
+import { Right } from "../components/Right";
 
 const Home: NextPage = () => {
   return (
@@ -19,8 +21,24 @@ const Home: NextPage = () => {
           <div>Login</div>
         </Header>
         <Main>
-          <div>Left</div>
-          <div>Right</div>
+          <div
+            style={{
+              border: "1px solid orange",
+              minWidth: "250px",
+            }}
+          >
+            Left
+          </div>
+          {/* <div
+            style={{
+              border: "1px solid purple",
+              flex: 1,
+              // width: "250px",
+            }}
+          >
+            Right
+          </div> */}
+          <Right />
         </Main>
         <Footer />
       </Root>
