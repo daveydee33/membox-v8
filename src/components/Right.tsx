@@ -30,7 +30,13 @@ export const Right = () => {
   //   },
   // });
 
-  if (!query.data) return "...";
+  console.log("query.error", query.error);
+  console.log("query.isError", query.isError);
+  console.log("query.data", query.data);
+  console.log("query.status", query.status);
+  console.log("query", query);
+  // if (query.error) return `Error fetching data.`;
+  if (!query.data) return query.status;
 
   const ItemCard = (props: ReactNode) => {
     return (
@@ -60,7 +66,7 @@ export const Right = () => {
         backgroundColor: "secondary.main",
       }}
     >
-      {(items || []).map((item, index) => (
+      {query.data?.results?.map((item, index) => (
         <ItemCard key={item.id}>{item.title}</ItemCard>
       ))}
     </Box>

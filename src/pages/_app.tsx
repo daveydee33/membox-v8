@@ -6,6 +6,7 @@ import Head from "next/head";
 import theme from "../theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -30,6 +31,7 @@ function MyApp(props: MyAppProps) {
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </CacheProvider>
   );
