@@ -1,6 +1,6 @@
 import { Grid, Box, Paper, styled, ThemeProvider } from "@mui/material";
 
-import React from "react";
+import React, { ReactNode } from "react";
 
 export const Right = () => {
   // const Item = styled(Paper)(({ theme }) => ({
@@ -11,58 +11,50 @@ export const Right = () => {
   //   lineHeight: "60px",
   // }));
 
-  const items = Array(1000).fill("The");
+  const items = Array(500).fill("nothing");
 
-  const Card = (title: string) => {
+  // const ItemCard = styled(Paper)(({ theme }) => {
+  //   return {
+  //     ...theme.typography.body1,
+  //     textAlign: "center",
+  //     color: theme.palette.text.secondary,
+  //     p: 1,
+  //   };
+  // });
+
+  const ItemCard = (props: ReactNode) => {
     return (
-      <Box
+      <Paper
         sx={{
-          backgroundColor: "darkcyan",
-          width: "100px",
-          height: "50px",
+          // backgroundColor: "darkcyan",
+          backgroundColor: "white",
+          p: 1,
+          textAlign: "center",
         }}
+        elevation={8}
       >
-        hi
-      </Box>
+        {props.children}
+      </Paper>
     );
   };
 
   return (
-    <Box
-      sx={{
-        // flex: 1,
-        display: "flex",
-        flexWrap: "wrap",
-        // padding: 1,
-        gap: 1,
-        alignContent: "flex-start",
-      }}
-    >
-      {items.map((item) => (
-        <Card>hi</Card>
-      ))}
-    </Box>
-
-    // <Grid container spacing={2}>
-    //   <Grid item xs={6}>
-    //     <ThemeProvider theme={"dark"}>
-    //       <Box
-    //         sx={{
-    //           p: 2,
-    //           bgcolor: "background.default",
-    //           display: "grid",
-    //           gridTemplateColumns: { md: "1fr 1fr" },
-    //           gap: 2,
-    //         }}
-    //       >
-    //         {[0, 1, 2, 3, 4, 6, 8, 12, 16, 24].map((elevation) => (
-    //           <Item key={elevation} elevation={elevation}>
-    //             {`elevation=${elevation}`}
-    //           </Item>
-    //         ))}
-    //       </Box>
-    //     </ThemeProvider>
-    //   </Grid>
-    // </Grid>
+    <ThemeProvider>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flexWrap: "wrap",
+          padding: 1,
+          gap: 1,
+          alignContent: "flex-start",
+          backgroundColor: "lightgray",
+        }}
+      >
+        {items.map((item, index) => (
+          <ItemCard>{index}</ItemCard>
+        ))}
+      </Box>
+    </ThemeProvider>
   );
 };
