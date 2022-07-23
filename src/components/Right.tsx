@@ -2,10 +2,12 @@ import { Box, Paper } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getItems } from "../api";
 import { useFilter } from "../hooks/useFilter";
+import { useItemContext } from "../hooks/useItemContext";
 
 import React, { ReactNode } from "react";
 
-export const Right = () => {
+const Right = () => {
+  const { selectedItem, setSelectedItem } = useItemContext();
   const { query: filter } = useFilter();
 
   // Queries
@@ -33,14 +35,16 @@ export const Right = () => {
           textAlign: "center",
           border: "2px solid transparent",
           color: "theme.palette.primary.main",
+          backgroundColor: props.item.id === selectedItem.id && "lightcyan",
           ":hover": {
             fontWeight: "bold",
             cursor: "pointer",
-            // backgroundColor: "lightcyan",
+            // (props.item.id === selectedItem.id) && backgroundColor: "lightcyan",
             borderColor: "primary.main",
           },
         }}
         elevation={8}
+        onClick={() => setSelectedItem(props.item)}
       >
         {props.children}
       </Paper>
@@ -57,11 +61,27 @@ export const Right = () => {
         gap: 1,
         alignContent: "flex-start",
         backgroundColor: "secondary.main",
+        // width: "25%",
+        width: "400px",
       }}
     >
-      {filteredItems.map((item, index) => (
-        <ItemCard key={item.id}>{item.title}</ItemCard>
-      ))}
+      {filteredItems.map((item, index) => {
+        const replacement = `<u>${filter.toLowerCase()}</u>`;
+        return (
+          <ItemCard key={item.id} item={item}>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: `${item.title.replace(
+                  filter.toLowerCase(),
+                  replacement
+                )}`,
+              }}
+            ></p>
+          </ItemCard>
+        );
+      })}
     </Box>
   );
 };
+
+export default Right;
