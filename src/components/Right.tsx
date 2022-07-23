@@ -36,17 +36,24 @@ const Right = () => {
           textAlign: "center",
           border: "2px solid transparent",
           color: "theme.palette.primary.main",
-          backgroundColor: props.item.id === selectedItem.id && "lightcyan",
+          backgroundColor: props.item.id === selectedItem.id && "lightcoral",
+          borderColor: props.item.id === selectedItem.id && "primary.main",
+          fontWeight: props.item.id === selectedItem.id && "bold",
           ":hover": {
             fontWeight: "bold",
             cursor: "pointer",
+            borderColor: "lightcoral",
+            // margin: "1px",
             // (props.item.id === selectedItem.id) && backgroundColor: "lightcyan",
-            borderColor: "primary.main",
+            // borderColor: "primary.main",
           },
         }}
         component="button"
         elevation={8}
-        onClick={() => setSelectedItem(props.item)}
+        onClick={() => {
+          console.log("selectedItem", props.item);
+          setSelectedItem(props.item);
+        }}
       >
         {props.children}
       </Paper>
