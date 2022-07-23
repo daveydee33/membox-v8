@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 export const getItems = async () => {
-  const limit = 999;
+  const limit = 9999;
   try {
     const res = await api.get(`/items?limit=${limit}`);
 

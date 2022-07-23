@@ -44,11 +44,11 @@ const Left = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         InputProps={{
-          endAdornment: true ? (
+          endAdornment: query && (
             <IconButton size="small" onClick={() => setQuery("")}>
               <ClearIcon />
             </IconButton>
-          ) : undefined,
+          ),
         }}
       />
 

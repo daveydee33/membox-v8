@@ -41,6 +41,7 @@ export const Main = (props: { children: ReactNode }) => {
         flex: 1,
         display: "flex",
         minHeight: 0,
+        gap: 2,
       }}
     >
       {props.children}

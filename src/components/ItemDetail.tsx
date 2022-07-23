@@ -14,7 +14,7 @@ const ItemDetail = () => {
       sx={{
         flex: 1,
         backgroundColor: "secondary.main",
-        px: 5,
+        // px: 5, // can't do this because it causes some problems when selecting and un-selecting values.  This panel grows too much
         display: "flex",
         flexDirection: "column",
         gap: 2,

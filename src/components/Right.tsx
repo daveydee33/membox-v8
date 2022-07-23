@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getItems, getTags } from "../api";
 import { useFilter } from "../hooks/useFilter";
@@ -68,7 +68,11 @@ const Right = () => {
         elevation={8}
         onClick={() => {
           console.log("selectedItem", props.item);
-          setSelectedItem(props.item);
+          if (selectedItem?.id === props.item.id) {
+            setSelectedItem(null);
+          } else {
+            setSelectedItem(props.item);
+          }
         }}
       >
         {props.children}
@@ -80,31 +84,45 @@ const Right = () => {
     <Box
       sx={{
         flex: 1,
-        display: "flex",
-        flexWrap: "wrap",
-        padding: 1,
-        gap: 1,
-        alignContent: "flex-start",
-        backgroundColor: "secondary.main",
         minHeight: 0,
         overflow: "auto",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      {filteredItems.map((item, index) => {
-        const replacement = `<u>${filter.toLowerCase()}</u>`;
-        return (
-          <ItemCard key={item.id} item={item}>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: `${item.title.replace(
-                  filter.toLowerCase(),
-                  replacement
-                )}`,
-              }}
-            ></span>
-          </ItemCard>
-        );
-      })}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          padding: 1,
+          gap: 1,
+          alignContent: "flex-start",
+          backgroundColor: "secondary.main",
+          minHeight: 0,
+          overflow: "auto",
+        }}
+      >
+        {filteredItems.map((item, index) => {
+          const replacement = `<u>${filter.toLowerCase()}</u>`;
+          return (
+            <ItemCard key={item.id} item={item}>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: `${item.title.replace(
+                    filter.toLowerCase(),
+                    replacement
+                  )}`,
+                }}
+              ></span>
+            </ItemCard>
+          );
+        })}
+      </Box>
+      <Box style={{ textAlign: "center" }}>
+        <Typography variant="caption">
+          {filteredItems.length} results
+        </Typography>
+      </Box>
     </Box>
   );
 };
