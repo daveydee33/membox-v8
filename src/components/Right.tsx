@@ -31,6 +31,14 @@ export const Right = () => {
           // backgroundColor: "darkcyan",
           p: 1,
           textAlign: "center",
+          border: "2px solid transparent",
+          color: "theme.palette.primary.main",
+          ":hover": {
+            fontWeight: "bold",
+            cursor: "pointer",
+            // backgroundColor: "lightcyan",
+            borderColor: "primary.main",
+          },
         }}
         elevation={8}
       >
