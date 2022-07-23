@@ -1,6 +1,6 @@
 import { Box, Paper } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getItems } from "../api";
+import { getItems, getTags } from "../api";
 import { useFilter } from "../hooks/useFilter";
 import { useItemContext } from "../hooks/useItemContext";
 
@@ -8,7 +8,7 @@ import React, { ReactNode } from "react";
 
 const Right = () => {
   const { selectedItem, setSelectedItem } = useItemContext();
-  const { query: filter, imagesOnly } = useFilter();
+  const { query: filter, imagesOnly, selectedTags } = useFilter();
 
   // Queries
   const query = useQuery(["items"], getItems);
@@ -16,6 +16,7 @@ const Right = () => {
   if (!query.data) return <div style={{ flex: 1 }}>{query.status}</div>;
 
   // Handle the filters
+  // 1
   const filterLowerCase = filter.toLocaleLowerCase();
   let filteredItems = query.data?.results?.filter((item) => {
     const itemTitle = item.title.toLowerCase();
@@ -25,6 +26,18 @@ const Right = () => {
       itemDescription.includes(filterLowerCase)
     );
   });
+  // 2 - Tags
+  if (selectedTags.length) {
+    filteredItems = filteredItems.filter((item) => {
+      let count = 0;
+      item.tags.forEach((tag) => {
+        if (selectedTags.includes(tag)) count += 1;
+        if (count > 0) return true;
+      });
+      return count > 0;
+    });
+  }
+  // 3
   filteredItems = filteredItems.filter((item) => {
     if (imagesOnly) return item.images.length > 0;
     return true;

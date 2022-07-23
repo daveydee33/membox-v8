@@ -21,3 +21,13 @@ export const getItems = async () => {
     throw new Error("Error fetching data from server");
   }
 };
+
+export const getTags = async () => {
+  try {
+    const res = await api.get("/tags");
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching data..", error);
+    throw new Error("Error fetching tags from server");
+  }
+};
