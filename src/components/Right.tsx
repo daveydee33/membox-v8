@@ -31,6 +31,7 @@ const Right = () => {
       <Paper
         sx={{
           // backgroundColor: "darkcyan",
+          fontSize: "large",
           p: 1,
           textAlign: "center",
           border: "2px solid transparent",
@@ -43,6 +44,7 @@ const Right = () => {
             borderColor: "primary.main",
           },
         }}
+        component="button"
         elevation={8}
         onClick={() => setSelectedItem(props.item)}
       >
@@ -69,14 +71,14 @@ const Right = () => {
         const replacement = `<u>${filter.toLowerCase()}</u>`;
         return (
           <ItemCard key={item.id} item={item}>
-            <p
+            <span
               dangerouslySetInnerHTML={{
                 __html: `${item.title.replace(
                   filter.toLowerCase(),
                   replacement
                 )}`,
               }}
-            ></p>
+            ></span>
           </ItemCard>
         );
       })}
