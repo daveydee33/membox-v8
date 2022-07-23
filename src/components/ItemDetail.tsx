@@ -5,22 +5,21 @@ const ItemDetail = () => {
   const { selectedItem, clearSelectedItem } = useItemContext();
 
   if (!selectedItem)
-    return <div style={{ flex: 1 }}>Click an item for details</div>;
+    return (
+      <p style={{ flex: 1, textAlign: "center" }}>Click an item for details</p>
+    );
 
   return (
     <Box
       sx={{
         flex: 1,
-        // display: "flex",
-        // flexWrap: "wrap",
-        // padding: 1,
-        // gap: 1,
-        // alignContent: "flex-start",
         backgroundColor: "secondary.main",
-        width: "400px",
+        px: 5,
         display: "flex",
         flexDirection: "column",
         gap: 2,
+        minHeight: 0,
+        overflow: "auto",
       }}
     >
       {/* <Typography variant="h6">Item Detail</Typography> */}
@@ -99,6 +98,12 @@ const ItemDetail = () => {
           <Chip label={word} variant="outlined" color="primary" size="medium" />
         ))}
       </div>
+
+      {/* <div>
+        {selectedItem.images.map((image) => (
+          <img src={image}></img>
+        ))}
+      </div> */}
 
       {/* <Typography>ID: {selectedItem.id}</Typography> */}
       {/* <Typography>Audio: {selectedItem.audio}</Typography> */}

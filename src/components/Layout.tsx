@@ -40,7 +40,7 @@ export const Main = (props: { children: ReactNode }) => {
       sx={{
         flex: 1,
         display: "flex",
-        // justifyContent: "space-evenly",
+        minHeight: 0,
       }}
     >
       {props.children}

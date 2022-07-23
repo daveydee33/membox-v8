@@ -72,8 +72,8 @@ const Right = () => {
         gap: 1,
         alignContent: "flex-start",
         backgroundColor: "secondary.main",
-        // width: "25%",
-        width: "400px",
+        minHeight: 0,
+        overflow: "auto",
       }}
     >
       {filteredItems.map((item, index) => {
