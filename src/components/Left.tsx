@@ -1,10 +1,16 @@
-import { Box, IconButton, TextField } from "@mui/material";
+import {
+  Box,
+  FormControlLabel,
+  IconButton,
+  Switch,
+  TextField,
+} from "@mui/material";
 import React from "react";
 import { useFilter } from "../hooks/useFilter";
 import ClearIcon from "@mui/icons-material/Clear";
 
 const Left = () => {
-  const { query, setQuery } = useFilter();
+  const { query, setQuery, imagesOnly, toggleImagesOnly } = useFilter();
 
   return (
     <Box
@@ -12,7 +18,8 @@ const Left = () => {
         minWidth: "250px",
         backgroundColor: "secondary.main",
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        justifyContent: "flex-start",
       }}
     >
       <TextField
@@ -27,6 +34,11 @@ const Left = () => {
             </IconButton>
           ) : undefined,
         }}
+      />
+
+      <FormControlLabel
+        control={<Switch checked={imagesOnly} onChange={toggleImagesOnly} />}
+        label="Images Only"
       />
     </Box>
   );
