@@ -13,7 +13,7 @@ const Right = () => {
   // Queries
   const query = useQuery(["items"], getItems);
 
-  if (!query.data) return <p>{query.status}</p>;
+  if (!query.data) return <div style={{ flex: 1 }}>{query.status}</div>;
 
   const filterLowerCase = filter.toLocaleLowerCase();
   const filteredItems = query.data?.results?.filter((item) => {
@@ -36,9 +36,11 @@ const Right = () => {
           textAlign: "center",
           border: "2px solid transparent",
           color: "theme.palette.primary.main",
-          backgroundColor: props.item.id === selectedItem.id && "lightcoral",
-          borderColor: props.item.id === selectedItem.id && "primary.main",
-          fontWeight: props.item.id === selectedItem.id && "bold",
+          ...(props.item.id === selectedItem?.id && {
+            backgroundColor: "lightcoral",
+            borderColor: "primary.main",
+            fontWeight: "bold",
+          }),
           ":hover": {
             fontWeight: "bold",
             cursor: "pointer",
@@ -63,7 +65,7 @@ const Right = () => {
   return (
     <Box
       sx={{
-        flexGrow: 1,
+        flex: 1,
         display: "flex",
         flexWrap: "wrap",
         padding: 1,

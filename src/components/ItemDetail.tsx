@@ -4,10 +4,13 @@ import { useItemContext } from "../hooks/useItemContext";
 const ItemDetail = () => {
   const { selectedItem, clearSelectedItem } = useItemContext();
 
+  if (!selectedItem)
+    return <div style={{ flex: 1 }}>Click an item for details</div>;
+
   return (
     <Box
       sx={{
-        flexGrow: 1,
+        flex: 1,
         // display: "flex",
         // flexWrap: "wrap",
         // padding: 1,
@@ -34,7 +37,6 @@ const ItemDetail = () => {
         <Typography variant="subtitle1">{selectedItem.description}</Typography>
       </Box>
       <Typography variant="subtitle2">{selectedItem.details}</Typography>
-      {/* <Typography>{JSON.stringify(selectedItem.examples)}</Typography> */}
 
       <div>
         <Typography>Examples:</Typography>
@@ -48,7 +50,14 @@ const ItemDetail = () => {
                 margin: "1rem",
               }}
             >
-              <div>{example.title}</div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `${example.title.replace(
+                    selectedItem.title.toLowerCase(),
+                    `<u>${selectedItem.title.toLowerCase()}</u>`
+                  )}`,
+                }}
+              ></div>
               <div>
                 <i>{example.description}</i>
               </div>

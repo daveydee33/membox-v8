@@ -13,8 +13,8 @@ import { createContext, useContext, useState } from "react";
 const ItemContext = createContext({});
 
 export const ItemContextProvider = (props: { children: ReactNode }) => {
-  const [selectedItem, setSelectedItem] = useState({});
-  const clearSelectedItem = () => setSelectedItem({});
+  const [selectedItem, setSelectedItem] = useState<{} | null>();
+  const clearSelectedItem = () => setSelectedItem(null);
 
   return (
     <ItemContext.Provider
