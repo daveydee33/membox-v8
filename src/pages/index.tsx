@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Header, Main, Footer, Root } from "../components/Layout";
 import { Right } from "../components/Right";
 import logo from "../../public/logo.png";
+import Left from "../components/Left";
+import { FilteredResultsProvider } from "../hooks/useFilter";
 
 const Home: NextPage = () => {
   return (
@@ -25,25 +27,10 @@ const Home: NextPage = () => {
           <div>Login</div>
         </Header>
         <Main>
-          <Box
-            sx={{
-              // border: "1px solid orange",
-              minWidth: "250px",
-              backgroundColor: "secondary.main",
-            }}
-          >
-            Left
-          </Box>
-          {/* <div
-            style={{
-              border: "1px solid purple",
-              flex: 1,
-              // width: "250px",
-            }}
-          >
-            Right
-          </div> */}
-          <Right />
+          <FilteredResultsProvider>
+            <Left />
+            <Right />
+          </FilteredResultsProvider>
         </Main>
         <Footer />
       </Root>

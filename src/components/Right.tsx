@@ -1,49 +1,34 @@
-import { Grid, Box, Paper, styled } from "@mui/material";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Box, Paper } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import { getItems } from "../api";
+import { useFilter } from "../hooks/useFilter";
 
 import React, { ReactNode } from "react";
 
 export const Right = () => {
-  // const [items, itemsSetter] = useState([]);
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // const fetchData = async () => {
-  //   const res = await getItems();
-  //   itemsSetter(res.results);
-  // };
-
-  // Access the client
-  const queryClient = useQueryClient();
+  const { query: filter } = useFilter();
 
   // Queries
   const query = useQuery(["items"], getItems);
 
-  // Mutations
-  // const mutation = useMutation(postTodo, {
-  //   onSuccess: () => {
-  //     // Invalidate and refetch
-  //     queryClient.invalidateQueries(["todos"]);
-  //   },
-  // });
+  if (!query.data) return <p>{query.status}</p>;
 
-  console.log("query.error", query.error);
-  console.log("query.isError", query.isError);
-  console.log("query.data", query.data);
-  console.log("query.status", query.status);
-  console.log("query", query);
-  // if (query.error) return `Error fetching data.`;
-  if (!query.data) return query.status;
+  const filterLowerCase = filter.toLocaleLowerCase();
+  const filteredItems = query.data?.results?.filter((item) => {
+    const itemTitle = item.title.toLowerCase();
+    const itemDescription = item.description.toLowerCase();
 
-  const ItemCard = (props: ReactNode) => {
+    return (
+      itemTitle.includes(filterLowerCase) ||
+      itemDescription.includes(filterLowerCase)
+    );
+  });
+
+  const ItemCard = (props: { children: ReactNode }) => {
     return (
       <Paper
         sx={{
           // backgroundColor: "darkcyan",
-          backgroundColor: "white",
           p: 1,
           textAlign: "center",
         }}
@@ -66,7 +51,7 @@ export const Right = () => {
         backgroundColor: "secondary.main",
       }}
     >
-      {query.data?.results?.map((item, index) => (
+      {filteredItems.map((item, index) => (
         <ItemCard key={item.id}>{item.title}</ItemCard>
       ))}
     </Box>
