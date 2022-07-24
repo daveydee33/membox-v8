@@ -1,8 +1,8 @@
 import { Box, Paper, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getItems, getTags } from "../api";
-import { useFilter } from "../hooks/useFilter";
-import { useItemContext } from "../hooks/useItemContext";
+import { getItems, getTags } from "@/api";
+import { useFilter } from "@/hooks/useFilter";
+import { useItemContext } from "@/hooks/useItemContext";
 
 import React, { ReactNode } from "react";
 

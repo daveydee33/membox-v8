@@ -8,9 +8,9 @@ import {
   TextField,
 } from "@mui/material";
 import React from "react";
-import { useFilter } from "../hooks/useFilter";
+import { useFilter } from "@/hooks/useFilter";
 import ClearIcon from "@mui/icons-material/Clear";
-import { getTags } from "../api";
+import { getTags } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 
 const Left = () => {

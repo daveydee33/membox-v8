@@ -50,5 +50,6 @@ export const Main = (props: { children: ReactNode }) => {
 };
 
 export const Footer = () => {
+  return;
   return <footer>Footer</footer>;
 };
