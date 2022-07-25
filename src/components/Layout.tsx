@@ -25,7 +25,7 @@ export const Header = (props: { children: ReactNode }) => {
         display: "flex",
         justifyContent: "space-between",
         padding: "1rem",
-        backgroundColor: "primary.dark",
+        backgroundColor: "secondary.main",
       }}
     >
       {props.children}
@@ -38,9 +38,10 @@ export const Main = (props: { children: ReactNode }) => {
     <Box
       component="main"
       sx={{
-        flexGrow: 1,
+        flex: 1,
         display: "flex",
-        // justifyContent: "space-evenly",
+        minHeight: 0,
+        gap: 2,
       }}
     >
       {props.children}
@@ -49,13 +50,5 @@ export const Main = (props: { children: ReactNode }) => {
 };
 
 export const Footer = () => {
-  return (
-    <footer
-      style={{
-        border: "1px solid red",
-      }}
-    >
-      Footer
-    </footer>
-  );
+  return <footer>Footer</footer>;
 };
