@@ -10,10 +10,35 @@ import { createContext, useContext, useState } from "react";
 //   // allItems: [], // maybe better to keep in react-query instead
 //   // filteredItems: [],
 // });
-const ItemContext = createContext({});
+
+export interface Item {
+  related: string[];
+  seeAlso: string[];
+  tags: string[];
+  audios: any[];
+  images: string[];
+  title: string;
+  description: string;
+  details: string;
+  examples: Example[];
+  id: string;
+}
+
+interface Example {
+  title: string;
+  description: string;
+}
+
+interface ItemContext {
+  selectedItem: Item | null | undefined;
+  clearSelectedItem: () => void;
+  setSelectedItem: (item: Item | null) => void;
+}
+
+const ItemContext = createContext<Partial<ItemContext>>({});
 
 export const ItemContextProvider = (props: { children: ReactNode }) => {
-  const [selectedItem, setSelectedItem] = useState<{} | null>();
+  const [selectedItem, setSelectedItem] = useState<Item | null>();
   const clearSelectedItem = () => setSelectedItem(null);
 
   return (

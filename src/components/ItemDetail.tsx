@@ -1,5 +1,5 @@
 import { Box, Chip, Typography } from "@mui/material";
-import { useItemContext } from "../hooks/useItemContext";
+import { useItemContext } from "@/hooks/useItemContext";
 
 const ItemDetail = () => {
   const { selectedItem, clearSelectedItem } = useItemContext();
@@ -88,14 +88,22 @@ const ItemDetail = () => {
         {selectedItem.related &&
           selectedItem.related
             .filter((v) => v)
-            .map((word) => <Chip label={word} variant="filled" color="info" />)}
+            .map((word) => (
+              <Chip key={word} label={word} variant="filled" color="info" />
+            ))}
       </div>
 
       <div>
         <Typography>See Also: </Typography>
         {/* <Typography>{JSON.stringify(selectedItem.seeAlso)}</Typography> */}
         {selectedItem.seeAlso?.map((word) => (
-          <Chip label={word} variant="outlined" color="primary" size="medium" />
+          <Chip
+            key={word}
+            label={word}
+            variant="outlined"
+            color="primary"
+            size="medium"
+          />
         ))}
       </div>
 
