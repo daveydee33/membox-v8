@@ -1,79 +1,37 @@
-import { Box, Paper, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { getItems, getTags } from "@/api";
-import { useFilter } from "@/hooks/useFilter";
-import { useItemContext } from "@/hooks/useItemContext";
-import { Item } from "@/types";
+import { Grid, Box, Paper, styled, ThemeProvider } from "@mui/material";
 
 import React, { ReactNode } from "react";
 
-const Right = () => {
-  const { selectedItem, setSelectedItem } = useItemContext();
-  const { query: filter, imagesOnly, selectedTags } = useFilter();
+export const Right = () => {
+  // const Item = styled(Paper)(({ theme }) => ({
+  //   ...theme.typography.body2,
+  //   textAlign: "center",
+  //   color: theme.palette.text.secondary,
+  //   height: 60,
+  //   lineHeight: "60px",
+  // }));
 
-  // Queries
-  const query = useQuery(["items"], getItems);
+  const items = Array(500).fill("nothing");
 
-  if (!query.data) return <div style={{ flex: 1 }}>{query.status}</div>;
+  // const ItemCard = styled(Paper)(({ theme }) => {
+  //   return {
+  //     ...theme.typography.body1,
+  //     textAlign: "center",
+  //     color: theme.palette.text.secondary,
+  //     p: 1,
+  //   };
+  // });
 
-  // Handle the filters
-  // 1
-  const filterLowerCase = filter.toLocaleLowerCase();
-  let filteredItems = query.data?.results?.filter((item: Item) => {
-    const itemTitle = item.title.toLowerCase();
-    const itemDescription = item.description.toLowerCase();
-    return (
-      itemTitle.includes(filterLowerCase) ||
-      itemDescription.includes(filterLowerCase)
-    );
-  });
-  // 2 - Tags
-  if (selectedTags.length) {
-    filteredItems = filteredItems.filter((item: Item) => {
-      let count = 0;
-      item.tags.forEach((tag) => {
-        if (selectedTags.includes(tag)) count += 1;
-        if (count > 0) return true;
-      });
-      return count > 0;
-    });
-  }
-  // 3
-  filteredItems = filteredItems.filter((item: Item) => {
-    if (imagesOnly) return item.images.length > 0;
-    return true;
-  });
-
-  const ItemCard = (props: { children: ReactNode; item: Item }) => {
+  const ItemCard = (props: ReactNode) => {
     return (
       <Paper
         sx={{
           // backgroundColor: "darkcyan",
-          fontSize: "large",
+          backgroundColor: "white",
           p: 1,
           textAlign: "center",
-          border: "2px solid transparent",
-          color: "theme.palette.primary.main",
-          ...(props.item.id === selectedItem?.id && {
-            backgroundColor: "lightcoral",
-            borderColor: "primary.main",
-            fontWeight: "bold",
-          }),
-          ":hover": {
-            fontWeight: "bold",
-            cursor: "pointer",
-            borderColor: "lightcoral",
-          },
         }}
-        component="button"
         elevation={8}
-        onClick={() => {
-          if (selectedItem?.id === props.item.id) {
-            setSelectedItem(null);
-          } else {
-            setSelectedItem(props.item);
-          }
-        }}
       >
         {props.children}
       </Paper>
@@ -81,50 +39,22 @@ const Right = () => {
   };
 
   return (
-    <Box
-      sx={{
-        flex: 1,
-        minHeight: 0,
-        overflow: "auto",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <ThemeProvider>
       <Box
         sx={{
+          flexGrow: 1,
           display: "flex",
           flexWrap: "wrap",
           padding: 1,
           gap: 1,
           alignContent: "flex-start",
-          backgroundColor: "secondary.main",
-          minHeight: 0,
-          overflow: "auto",
+          backgroundColor: "lightgray",
         }}
       >
-        {filteredItems.map((item: Item) => {
-          const replacement = `<u>${filter.toLowerCase()}</u>`;
-          return (
-            <ItemCard key={item.id} item={item}>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: `${item.title.replace(
-                    filter.toLowerCase(),
-                    replacement
-                  )}`,
-                }}
-              ></span>
-            </ItemCard>
-          );
-        })}
+        {items.map((item, index) => (
+          <ItemCard>{index}</ItemCard>
+        ))}
       </Box>
-      <Box style={{ textAlign: "center" }}>
-        <Typography variant="caption">
-          {filteredItems.length} results
-        </Typography>
-      </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
-
-export default Right;

@@ -3,13 +3,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 // import styles from "../styles/Home.module.css";
-import { Header, Main, Footer, Root } from "@/components/Layout";
-import logo from "../../public/logo.png";
-import Left from "@/components/Left";
-import Right from "@/components/Right";
-import ItemDetail from "@/components/ItemDetail";
-import { FilteredResultsProvider } from "@/hooks/useFilter";
-import { ItemContextProvider } from "@/hooks/useItemContext";
+import { Header, Main, Footer, Root } from "../components/Layout";
+import { Right } from "../components/Right";
 
 const Home: NextPage = () => {
   return (
@@ -21,21 +16,29 @@ const Home: NextPage = () => {
       </Head>
       <Root>
         <Header>
-          <div>
-            {/* <Image src={logo} width="20px" height="20px"></Image> */}
-            Logo
-          </div>
+          <div>Logo</div>
           <div>Search</div>
           <div>Login</div>
         </Header>
         <Main>
-          <FilteredResultsProvider>
-            <ItemContextProvider>
-              <Left />
-              <Right />
-              <ItemDetail />
-            </ItemContextProvider>
-          </FilteredResultsProvider>
+          <div
+            style={{
+              border: "1px solid orange",
+              minWidth: "250px",
+            }}
+          >
+            Left
+          </div>
+          {/* <div
+            style={{
+              border: "1px solid purple",
+              flex: 1,
+              // width: "250px",
+            }}
+          >
+            Right
+          </div> */}
+          <Right />
         </Main>
         <Footer />
       </Root>
