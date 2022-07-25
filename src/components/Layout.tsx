@@ -38,9 +38,10 @@ export const Main = (props: { children: ReactNode }) => {
     <Box
       component="main"
       sx={{
-        flexGrow: 1,
+        flex: 1,
         display: "flex",
-        // justifyContent: "space-evenly",
+        minHeight: 0,
+        gap: 2,
       }}
     >
       {props.children}

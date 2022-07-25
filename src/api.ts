@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 export const getItems = async () => {
-  const limit = 999;
+  const limit = 9999;
   try {
     const res = await api.get(`/items?limit=${limit}`);
 
@@ -19,5 +19,15 @@ export const getItems = async () => {
   } catch (error) {
     console.error("Error fetching data..", error);
     throw new Error("Error fetching data from server");
+  }
+};
+
+export const getTags = async () => {
+  try {
+    const res = await api.get("/tags");
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching data..", error);
+    throw new Error("Error fetching tags from server");
   }
 };

@@ -3,11 +3,13 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 // import styles from "../styles/Home.module.css";
-import { Header, Main, Footer, Root } from "../components/Layout";
-import { Right } from "../components/Right";
+import { Header, Main, Footer, Root } from "@/components/Layout";
 import logo from "../../public/logo.png";
-import Left from "../components/Left";
-import { FilteredResultsProvider } from "../hooks/useFilter";
+import Left from "@/components/Left";
+import Right from "@/components/Right";
+import ItemDetail from "@/components/ItemDetail";
+import { FilteredResultsProvider } from "@/hooks/useFilter";
+import { ItemContextProvider } from "@/hooks/useItemContext";
 
 const Home: NextPage = () => {
   return (
@@ -28,8 +30,11 @@ const Home: NextPage = () => {
         </Header>
         <Main>
           <FilteredResultsProvider>
-            <Left />
-            <Right />
+            <ItemContextProvider>
+              <Left />
+              <Right />
+              <ItemDetail />
+            </ItemContextProvider>
           </FilteredResultsProvider>
         </Main>
         <Footer />
