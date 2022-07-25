@@ -1,9 +1,25 @@
 import { ReactNode } from "react";
 import { createContext, useContext, useState } from "react";
 
+/**
+ * A helper to create a Context and Provider with no upfront default value, and
+ * without having to check for undefined all the time.
+ * https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/
+ */
+function createCtx<A extends {} | null>() {
+  const ctx = createContext<A | undefined>(undefined);
+  function useCtx() {
+    const c = useContext(ctx);
+    if (c === undefined)
+      throw new Error("useCtx must be inside a Provider with a value");
+    return c;
+  }
+  return [useCtx, ctx.Provider] as const;
+}
+
 interface FilterResultsContext {
   query: string;
-  setQuery: (query: string | undefined) => void;
+  setQuery: (query: string) => void;
   imagesOnly: boolean;
   toggleImagesOnly: (v: boolean) => void;
   selectedTags: string[];
@@ -11,10 +27,10 @@ interface FilterResultsContext {
   reset: () => void;
 }
 
-const FilterResultsContext = createContext<Partial<FilterResultsContext>>({});
+export const [useFilter, CtxProvider] = createCtx<FilterResultsContext>();
 
 export const FilteredResultsProvider = (props: { children: ReactNode }) => {
-  const [query, setQuery] = useState<string | undefined>("");
+  const [query, setQuery] = useState<string>("");
   const [imagesOnly, setImagesOnly] = useState(false);
   const toggleImagesOnly = () => setImagesOnly((v) => !v);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -32,7 +48,7 @@ export const FilteredResultsProvider = (props: { children: ReactNode }) => {
   };
 
   return (
-    <FilterResultsContext.Provider
+    <CtxProvider
       value={{
         query,
         setQuery,
@@ -44,8 +60,6 @@ export const FilteredResultsProvider = (props: { children: ReactNode }) => {
       }}
     >
       {props.children}
-    </FilterResultsContext.Provider>
+    </CtxProvider>
   );
 };
-
-export const useFilter = () => useContext(FilterResultsContext);

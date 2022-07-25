@@ -11,6 +11,22 @@ import { createContext, useContext, useState } from "react";
 //   // filteredItems: [],
 // });
 
+/**
+ * A helper to create a Context and Provider with no upfront default value, and
+ * without having to check for undefined all the time.
+ * https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/
+ */
+function createCtx<A extends {} | null>() {
+  const ctx = createContext<A | undefined>(undefined);
+  function useCtx() {
+    const c = useContext(ctx);
+    if (c === undefined)
+      throw new Error("useCtx must be inside a Provider with a value");
+    return c;
+  }
+  return [useCtx, ctx.Provider] as const; // 'as const' makes TypeScript infer a tuple
+}
+
 export interface Item {
   related: string[];
   seeAlso: string[];
@@ -35,19 +51,17 @@ interface ItemContext {
   setSelectedItem: (item: Item | null) => void;
 }
 
-const ItemContext = createContext<Partial<ItemContext>>({});
+export const [useItemContext, CtxProvider] = createCtx<ItemContext>();
 
 export const ItemContextProvider = (props: { children: ReactNode }) => {
   const [selectedItem, setSelectedItem] = useState<Item | null>();
   const clearSelectedItem = () => setSelectedItem(null);
 
   return (
-    <ItemContext.Provider
-      value={{ selectedItem, setSelectedItem, clearSelectedItem }}
-    >
+    <CtxProvider value={{ selectedItem, setSelectedItem, clearSelectedItem }}>
       {props.children}
-    </ItemContext.Provider>
+    </CtxProvider>
   );
 };
 
-export const useItemContext = () => useContext(ItemContext);
+// export const useItemContext = () => useContext(ItemContext);
