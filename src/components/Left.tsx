@@ -65,8 +65,8 @@ const Left = () => {
         }}
       >
         {tags?.data
-          ?.filter((v) => v)
-          .map((tag) => (
+          ?.filter((v: string) => v)
+          .map((tag: string) => (
             <Chip
               key={tag}
               label={tag}

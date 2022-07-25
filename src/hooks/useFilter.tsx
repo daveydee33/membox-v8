@@ -21,7 +21,7 @@ interface FilterResultsContext {
   query: string;
   setQuery: (query: string) => void;
   imagesOnly: boolean;
-  toggleImagesOnly: (v: boolean) => void;
+  toggleImagesOnly: () => void;
   selectedTags: string[];
   toggleSelectedTag: (tag: string) => void;
   reset: () => void;

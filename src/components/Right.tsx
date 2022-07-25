@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getItems, getTags } from "@/api";
 import { useFilter } from "@/hooks/useFilter";
 import { useItemContext } from "@/hooks/useItemContext";
+import { Item } from "@/types";
 
 import React, { ReactNode } from "react";
 
@@ -18,7 +19,7 @@ const Right = () => {
   // Handle the filters
   // 1
   const filterLowerCase = filter.toLocaleLowerCase();
-  let filteredItems = query.data?.results?.filter((item) => {
+  let filteredItems = query.data?.results?.filter((item: Item) => {
     const itemTitle = item.title.toLowerCase();
     const itemDescription = item.description.toLowerCase();
     return (
@@ -28,7 +29,7 @@ const Right = () => {
   });
   // 2 - Tags
   if (selectedTags.length) {
-    filteredItems = filteredItems.filter((item) => {
+    filteredItems = filteredItems.filter((item: Item) => {
       let count = 0;
       item.tags.forEach((tag) => {
         if (selectedTags.includes(tag)) count += 1;
@@ -38,12 +39,12 @@ const Right = () => {
     });
   }
   // 3
-  filteredItems = filteredItems.filter((item) => {
+  filteredItems = filteredItems.filter((item: Item) => {
     if (imagesOnly) return item.images.length > 0;
     return true;
   });
 
-  const ItemCard = (props: { children: ReactNode }) => {
+  const ItemCard = (props: { children: ReactNode; item: Item }) => {
     return (
       <Paper
         sx={{
@@ -67,7 +68,6 @@ const Right = () => {
         component="button"
         elevation={8}
         onClick={() => {
-          console.log("selectedItem", props.item);
           if (selectedItem?.id === props.item.id) {
             setSelectedItem(null);
           } else {
@@ -102,7 +102,7 @@ const Right = () => {
           overflow: "auto",
         }}
       >
-        {filteredItems.map((item, index) => {
+        {filteredItems.map((item: Item) => {
           const replacement = `<u>${filter.toLowerCase()}</u>`;
           return (
             <ItemCard key={item.id} item={item}>

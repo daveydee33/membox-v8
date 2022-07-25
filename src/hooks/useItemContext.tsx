@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { createContext, useContext, useState } from "react";
+import { Item } from "@/types";
 
 // const ItemContext = createContext({
 //   // TODO: might be a better way to set this for types
@@ -25,24 +26,6 @@ function createCtx<A extends {} | null>() {
     return c;
   }
   return [useCtx, ctx.Provider] as const; // 'as const' makes TypeScript infer a tuple
-}
-
-export interface Item {
-  related: string[];
-  seeAlso: string[];
-  tags: string[];
-  audios: any[];
-  images: string[];
-  title: string;
-  description: string;
-  details: string;
-  examples: Example[];
-  id: string;
-}
-
-interface Example {
-  title: string;
-  description: string;
 }
 
 interface ItemContext {
