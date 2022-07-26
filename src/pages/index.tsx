@@ -25,8 +25,8 @@ const Home: NextPage = () => {
             {/* <Image src={logo} width="20px" height="20px"></Image> */}
             Logo
           </div>
-          <div>Search</div>
-          <div>Login</div>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>Search</Box>
+          <div style={{ textAlign: "right" }}>Login</div>
         </Header>
         <Main>
           <FilteredResultsProvider>
