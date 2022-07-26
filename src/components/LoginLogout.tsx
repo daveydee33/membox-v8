@@ -6,6 +6,7 @@ import {
   logout,
 } from "@/firebase";
 import Image from "next/image";
+import { Button } from "@mui/material";
 
 const LoginLogout = () => {
   const { currentUserFirebase, favorites, progress, role } =
@@ -26,9 +27,9 @@ const LoginLogout = () => {
   const handleLogout = async () => logout();
 
   return (
-    <div>
+    <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
       {currentUserFirebase && (
-        <div>
+        <>
           {currentUserFirebase?.email}{" "}
           {currentUserFirebase?.photoURL && (
             <Image
@@ -39,14 +40,12 @@ const LoginLogout = () => {
               style={{ borderRadius: "50%" }}
             ></Image>
           )}
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+          <Button onClick={handleLogout} size="small">
+            Logout
+          </Button>
+        </>
       )}
-      {!currentUserFirebase && (
-        <div>
-          <button onClick={handleLogin}>Login</button>
-        </div>
-      )}
+      {!currentUserFirebase && <Button onClick={handleLogin}>Login</Button>}
     </div>
   );
 };
