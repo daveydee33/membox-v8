@@ -8,6 +8,7 @@ import logo from "../../public/logo.png";
 import Left from "@/components/Left";
 import Right from "@/components/Right";
 import ItemDetail from "@/components/ItemDetail";
+import LoginLogout from "@/components/LoginLogout";
 import { FilteredResultsProvider } from "@/hooks/useFilter";
 import { ItemContextProvider } from "@/hooks/useItemContext";
 
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
             Logo
           </div>
           <div>Search</div>
-          <div>Login</div>
+          <LoginLogout />
         </Header>
         <Main>
           <FilteredResultsProvider>
