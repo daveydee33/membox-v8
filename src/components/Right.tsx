@@ -4,12 +4,15 @@ import { getItems, getTags } from "@/api";
 import { useFilter } from "@/hooks/useFilter";
 import { useItemContext } from "@/hooks/useItemContext";
 import { Item } from "@/types";
+import { FirebaseContext, useUserDataFirebase } from "@/firebase";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 
 const Right = () => {
   const { selectedItem, setSelectedItem } = useItemContext();
   const { query: filter, imagesOnly, selectedTags } = useFilter();
+  const { currentUserFirebase, favorites, progress, role } =
+    useContext(FirebaseContext);
 
   // Queries
   const query = useQuery(["items"], getItems);
@@ -54,6 +57,9 @@ const Right = () => {
           textAlign: "center",
           border: "2px solid transparent",
           color: "theme.palette.primary.main",
+          ...(favorites.includes(props.item.title) && {
+            backgroundColor: "#e6f988",
+          }),
           ...(props.item.id === selectedItem?.id && {
             backgroundColor: "lightcoral",
             borderColor: "primary.main",
