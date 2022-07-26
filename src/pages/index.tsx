@@ -26,7 +26,7 @@ const Home: NextPage = () => {
             Logo
           </div>
           <Box sx={{ display: "flex", justifyContent: "center" }}>Search</Box>
-          <div>Login</div>
+          <div style={{ textAlign: "right" }}>Login</div>
         </Header>
         <Main>
           <FilteredResultsProvider>
