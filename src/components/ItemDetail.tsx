@@ -2,7 +2,7 @@ import { Box, Chip, Typography } from "@mui/material";
 import { useItemContext } from "@/hooks/useItemContext";
 
 const ItemDetail = () => {
-  const { selectedItem, clearSelectedItem } = useItemContext();
+  const { selectedItem } = useItemContext();
 
   if (!selectedItem)
     return (
@@ -30,38 +30,57 @@ const ItemDetail = () => {
           gap: 2,
         }}
       >
-        <Typography variant="h6" component="h1">
+        <Typography variant="h4" component="h1">
           {selectedItem.title}
         </Typography>
-        <Typography variant="subtitle1">{selectedItem.description}</Typography>
+        <div>
+          <Typography variant="h6" sx={{ fontWeight: "normal" }}>
+            {selectedItem.description}
+          </Typography>
+        </div>
       </Box>
-      <Typography variant="subtitle2">{selectedItem.details}</Typography>
+
+      {selectedItem.details && (
+        <Box sx={{ border: "1px solid gray", px: 2, py: 1, borderRadius: 5 }}>
+          <Typography variant="subtitle1">{selectedItem.details}</Typography>
+        </Box>
+      )}
 
       <div>
-        <Typography>Examples:</Typography>
+        <Typography>
+          <b>Examples:</b>
+        </Typography>
         {selectedItem.examples &&
-          selectedItem.examples.map((example) => (
-            <div
-              key={(example.title, example.description)}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                margin: "1rem",
-              }}
-            >
+          selectedItem.examples.map((example) => {
+            const regexTitle = new RegExp(selectedItem.title, "gi");
+            const titleWithBold = example.title.replace(
+              regexTitle,
+              `<u>$&</u>`
+            );
+            const regexDescription = new RegExp(
+              `\\b(${selectedItem.description.split("; ").join("|")})\\b`,
+              "gi"
+            );
+            const descriptionWithBold = example.description.replace(
+              regexDescription,
+              `<u>$&</u>`
+            );
+            return (
               <div
-                dangerouslySetInnerHTML={{
-                  __html: `${example.title.replace(
-                    selectedItem.title.toLowerCase(),
-                    `<u>${selectedItem.title.toLowerCase()}</u>`
-                  )}`,
+                key={(example.title, example.description)}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  margin: "1rem",
                 }}
-              ></div>
-              <div>
-                <i>{example.description}</i>
+              >
+                <div dangerouslySetInnerHTML={{ __html: titleWithBold }} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: descriptionWithBold }}
+                />
               </div>
-            </div>
-          ))}
+            );
+          })}
       </div>
 
       <div>
