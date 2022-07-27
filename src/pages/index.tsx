@@ -7,6 +7,7 @@ import { Header, Main, Footer, Root } from "@/components/Layout";
 import logo from "../../public/logo.png";
 import Left from "@/components/Left";
 import Right from "@/components/Right";
+import LoginLogout from "@/components/LoginLogout";
 import ItemDetail from "@/components/ItemDetail";
 import { FilteredResultsProvider } from "@/hooks/useFilter";
 import { ItemContextProvider } from "@/hooks/useItemContext";
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
             Logo
           </div>
           <Box sx={{ display: "flex", justifyContent: "center" }}>Search</Box>
-          <div style={{ textAlign: "right" }}>Login</div>
+          <LoginLogout />
         </Header>
         <Main>
           <FilteredResultsProvider>

@@ -24,6 +24,7 @@ export const Header = (props: { children: ReactNode }) => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
+        alignItems: "center",
         padding: "1rem",
         backgroundColor: "secondary.main",
         "> div": {
