@@ -28,14 +28,21 @@ const Left = () => {
   return (
     <Box
       sx={{
-        flex: 0,
-        minWidth: "250px",
+        flexGrow: "0",
+        // flexShrink: "0",
+        flexBasis: "250px",
         backgroundColor: "secondary.main",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
         gap: 2,
         m: 1,
+        minHeight: 0,
+        overflow: "auto",
+
+        // "@media (max-width: 768px)": {
+        //   maxHeight: "100px",
+        // },
       }}
     >
       <TextField

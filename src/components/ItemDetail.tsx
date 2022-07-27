@@ -18,6 +18,7 @@ const ItemDetail = () => {
         display: "flex",
         flexDirection: "column",
         gap: 2,
+        p: 1,
         minHeight: 0,
         overflow: "auto",
       }}
