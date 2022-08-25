@@ -14,7 +14,12 @@ const Right = () => {
   // Queries
   const query = useQuery(["items"], getItems);
 
-  if (!query.data) return <div style={{ flex: 1 }}>{query.status}</div>;
+  if (!query.data)
+    return (
+      <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+        {query.status}
+      </div>
+    );
 
   // Handle the filters
   // 1
@@ -52,7 +57,7 @@ const Right = () => {
           fontSize: "large",
           p: 1,
           textAlign: "center",
-          border: "2px solid transparent",
+          border: "3px solid transparent",
           color: "theme.palette.primary.main",
           ...(props.item.id === selectedItem?.id && {
             backgroundColor: "lightcoral",
@@ -94,8 +99,8 @@ const Right = () => {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          padding: 1,
-          gap: 1,
+          padding: 2,
+          gap: 1.25,
           alignContent: "flex-start",
           backgroundColor: "secondary.main",
           minHeight: 0,

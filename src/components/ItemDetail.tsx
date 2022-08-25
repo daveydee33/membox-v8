@@ -1,8 +1,17 @@
 import { Box, Chip, Typography } from "@mui/material";
 import { useItemContext } from "@/hooks/useItemContext";
+import AudioPlayer from "./AudioPlayer";
+import { wrap } from "module";
 
 const ItemDetail = () => {
   const { selectedItem } = useItemContext();
+
+  const getItemUrls = (title: string) => [
+    `https://lla-audio.s3.amazonaws.com/B/${title}.mp3`,
+    `https://lla-audio.s3.amazonaws.com/A/${title}.mp3`,
+    `https://lla-audio.s3.amazonaws.com/C/${title}.mp3`,
+    `https://lla-audio.s3.amazonaws.com/D/${title}.mp3`,
+  ];
 
   if (!selectedItem)
     return (
@@ -27,10 +36,12 @@ const ItemDetail = () => {
       <Box
         sx={{
           display: "flex",
-          alignItems: "baseline",
+          alignItems: "center",
+          flexWrap: "wrap",
           gap: 2,
         }}
       >
+        <AudioPlayer urls={getItemUrls(selectedItem.title)} />
         <Typography variant="h4" component="h1">
           {selectedItem.title}
         </Typography>
@@ -42,15 +53,13 @@ const ItemDetail = () => {
       </Box>
 
       {selectedItem.details && (
-        <Box sx={{ border: "1px solid gray", px: 2, py: 1, borderRadius: 5 }}>
+        <Box sx={{ border: "1px solid gray", px: 2, py: 1, borderRadius: 3 }}>
           <Typography variant="subtitle1">{selectedItem.details}</Typography>
         </Box>
       )}
 
       <div>
-        <Typography>
-          <b>Examples:</b>
-        </Typography>
+        <Typography variant="h6">Examples:</Typography>
         {selectedItem.examples &&
           selectedItem.examples.map((example) => {
             const regexTitle = new RegExp(selectedItem.title, "gi");
@@ -85,7 +94,7 @@ const ItemDetail = () => {
       </div>
 
       <div>
-        <Typography>Tags: </Typography>
+        <Typography variant="h6">Tags: </Typography>
         {/* <Typography>{JSON.stringify(selectedItem.tags)}</Typography> */}
         {selectedItem.tags &&
           selectedItem.tags
@@ -97,24 +106,30 @@ const ItemDetail = () => {
                 variant="outlined"
                 color="info"
                 size="medium"
-                sx={{ m: 0.5 }}
+                sx={{ m: 0.25 }}
               />
             ))}
       </div>
 
       <div>
-        <Typography>Related: </Typography>
+        <Typography variant="h6">Related:</Typography>
         {/* <Typography>{JSON.stringify(selectedItem.related)}</Typography> */}
         {selectedItem.related &&
           selectedItem.related
             .filter((v) => v)
             .map((word) => (
-              <Chip key={word} label={word} variant="filled" color="info" />
+              <Chip
+                key={word}
+                label={word}
+                variant="filled"
+                color="info"
+                sx={{ m: 0.25 }}
+              />
             ))}
       </div>
 
       <div>
-        <Typography>See Also: </Typography>
+        <Typography variant="h6">See Also: </Typography>
         {/* <Typography>{JSON.stringify(selectedItem.seeAlso)}</Typography> */}
         {selectedItem.seeAlso?.map((word) => (
           <Chip
