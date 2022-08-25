@@ -36,7 +36,7 @@ const Left = () => {
         flexDirection: "column",
         justifyContent: "flex-start",
         gap: 2,
-        m: 1,
+        p: 1,
         minHeight: 0,
         overflow: "auto",
 
