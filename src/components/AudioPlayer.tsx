@@ -1,5 +1,5 @@
 import ReactPlayer from "react-player/file";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import buttonImg from "../assets/audio.png";
 const buttonImg = "./assets/audio.png";
 
@@ -36,8 +36,8 @@ function AudioPlayer({ urls }: { urls: string | string[] }) {
 
   return (
     <ReactPlayer
-      onClick={(e) => {
-        e.stopPropagation();
+      onClick={(event: React.MouseEvent) => {
+        event.stopPropagation();
         setPlaying((v) => !v);
       }}
       url={urls[playIndex]}
