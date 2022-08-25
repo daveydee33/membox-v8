@@ -104,7 +104,7 @@ const ItemDetail = () => {
                 key={word}
                 label={word}
                 variant="outlined"
-                color="info"
+                color="warning"
                 size="medium"
                 sx={{ m: 0.25 }}
               />
@@ -112,7 +112,7 @@ const ItemDetail = () => {
       </div>
 
       <div>
-        <Typography variant="h6">Related:</Typography>
+        <Typography variant="h6">Related Words:</Typography>
         {/* <Typography>{JSON.stringify(selectedItem.related)}</Typography> */}
         {selectedItem.related &&
           selectedItem.related
@@ -136,7 +136,7 @@ const ItemDetail = () => {
             key={word}
             label={word}
             variant="outlined"
-            color="primary"
+            color="info"
             size="medium"
           />
         ))}
