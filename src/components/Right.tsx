@@ -14,7 +14,12 @@ const Right = () => {
   // Queries
   const query = useQuery(["items"], getItems);
 
-  if (!query.data) return <div style={{ flex: 1 }}>{query.status}</div>;
+  if (!query.data)
+    return (
+      <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+        {query.status}
+      </div>
+    );
 
   // Handle the filters
   // 1
